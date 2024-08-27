@@ -1,2 +1,2 @@
 # SalesWebMvc
-CRUD com rRegistro de vendas, departamentos e vendedores
+CRUD com registro de vendas, departamentos e vendedores
