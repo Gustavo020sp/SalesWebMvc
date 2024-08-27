@@ -26,6 +26,8 @@ namespace SalesWebMvc
 
             app.UseAuthorization();
 
+
+            //Chama por padrão o HOME/INDEX
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
