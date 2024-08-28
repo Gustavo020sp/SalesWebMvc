@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SalesWebMvc.Models;
 using SalesWebMvc.Models.ViewModels;
 using SalesWebMvc.Services;
@@ -32,9 +33,36 @@ namespace SalesWebMvc.Controllers
 
         //POST: Sellers/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
         {
             _sellerservice.Insert(seller);
+            return RedirectToAction("Index");
+        }
+
+        // GET: Sellers/Delete
+        public IActionResult Delete(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var seller = _sellerservice.FindById(id);
+            if (seller == null)
+            {
+                return NotFound();
+            }
+
+            return View(seller);
+        }
+
+        //POST: Sellers/Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Seller seller)
+        {
+            _sellerservice.Remove(seller);
             return RedirectToAction("Index");
         }
     }
