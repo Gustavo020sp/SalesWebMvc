@@ -1,0 +1,42 @@
+﻿@model IEnumerable<SalesWebMvc.Models.Department>
+
+@{
+	ViewBag.Title = "Página de Busca";
+}
+
+<h1>Sales Records</h1>
+
+<div>
+	<h3>Simple Search</h3>
+	<form method="get" asp-action="SimpleSearch">
+		<div class="form-group">
+			<label for="mindate">Min Date</label>
+			<input type="date" id="mindate" name="mindate" class="form-control" required />
+		</div>
+		<div class="form-group">
+			<label for="maxdate">Max Date</label>
+			<input type="date" id="mindate" name="maxdate" class="form-control" required />
+		</div>
+		<p></p>
+		<button type="submit" class="btn btn-primary">Search</button>
+	</form>
+</div>
+<p></p>
+
+<hr />
+
+<div>
+	<h3>Busca Agrupada</h3>
+	<form method="get" asp-action="GroupingSearch">
+		<div class="form-group">
+			<label for="dataInicialAgrupada">Min Date</label>
+			<input type="date" id="dataInicialAgrupada" name="dataInicialAgrupada" class="form-control" required />
+		</div>
+		<div class="form-group">
+			<label for="dataFinalAgrupada">Max Date</label>
+			<input type="date" id="dataFinalAgrupada" name="dataFinalAgrupada" class="form-control" required />
+		</div>
+		<p></p>
+		<button type="submit" class="btn btn-primary">Search</button>
+	</form>
+</div>
