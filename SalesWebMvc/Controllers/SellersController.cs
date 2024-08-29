@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Nest;
 using SalesWebMvc.Models;
 using SalesWebMvc.Models.ViewModels;
 using SalesWebMvc.Services;
@@ -63,6 +64,52 @@ namespace SalesWebMvc.Controllers
         public IActionResult Delete(Seller seller)
         {
             _sellerservice.Remove(seller);
+            return RedirectToAction("Index");
+        }
+
+        // GET: Sellers/Details
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var seller = _sellerservice.FindById(id);
+            if (seller == null)
+            {
+                return NotFound();
+            }
+
+            return View(seller);
+        }
+
+        // GET: Sellers/Edit
+        public IActionResult Edit(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var seller = _sellerservice.FindById(id);
+            if (seller == null)
+            {
+                return NotFound();
+            }
+
+            List<Department> departments = _departmentservice.FindAll();
+            SellerFormViewModel viewmodel = new SellerFormViewModel { Seller = seller, Departments = departments};
+
+            return View(viewmodel);
+        }
+
+        //POST: Sellers/Update
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Seller seller)
+        {
+            _sellerservice.Update(seller);
             return RedirectToAction("Index");
         }
     }

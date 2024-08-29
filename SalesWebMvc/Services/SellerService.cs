@@ -1,4 +1,6 @@
-﻿using SalesWebMvc.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Nest;
+using SalesWebMvc.Data;
 using SalesWebMvc.Models;
 
 namespace SalesWebMvc.Services
@@ -16,8 +18,9 @@ namespace SalesWebMvc.Services
 
 		public List<Seller> FindAll()
 		{
-		    return _context.Seller.ToList();	
-		}
+		    return _context.Seller.ToList();
+
+        }
 
 		public void Insert(Seller obj)
 		{
@@ -32,7 +35,13 @@ namespace SalesWebMvc.Services
 
         public Seller FindById(int id)
 		{
-			return _context.Seller.FirstOrDefault(obj => obj.Id == id);
-		}
+			return _context.Seller.Include(obj => obj.Department).FirstOrDefault(obj => obj.Id == id);
+        }
+
+		public void Update(Seller obj)
+		{
+			_context.Seller.Update(obj);
+            _context.SaveChanges();
+        }
 	}
 }
