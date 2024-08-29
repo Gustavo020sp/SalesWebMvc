@@ -48,6 +48,8 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+
+@* Esses scripts são responsáveis por validar os formulários no cliente antes de enviá-los para o servidor. *@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

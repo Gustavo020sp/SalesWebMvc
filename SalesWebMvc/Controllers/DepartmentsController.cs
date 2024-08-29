@@ -28,7 +28,7 @@ namespace SalesWebMvc.Controllers
             return View(await _context.Department.ToListAsync());
         }
 
-        // GET: Departments/Details/5
+        // GET: Departments/Details
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -68,7 +68,7 @@ namespace SalesWebMvc.Controllers
             return View(department);
         }
 
-        // GET: Departments/Edit/5
+        // GET: Departments/Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,9 +84,7 @@ namespace SalesWebMvc.Controllers
             return View(department);
         }
 
-        // POST: Departments/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Departments/Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Department department)
