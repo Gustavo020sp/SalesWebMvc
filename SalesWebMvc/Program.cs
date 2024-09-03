@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SalesWebMvc.Data;
@@ -9,13 +10,24 @@ namespace SalesWebMvc
     {
         public static void Main(string[] args)
         {
-            
 
+            //Database configurations
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<SalesWebMvcContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SalesWebMvcContext") ?? throw new InvalidOperationException("Connection string 'SalesWebMvcContext' not found.")));
 
+
+            //User authentication configurations
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie(options =>
+        {
+            options.LoginPath = "/Account/Login";
+            options.LogoutPath = "/Account/Logout";
+        });
+
+
             builder.Services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+
             builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout

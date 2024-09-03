@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using SalesWebMvc.Data;
 
@@ -41,10 +43,19 @@ namespace SalesWebMvc.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Logout() 
-        { 
+        {
+            // Sign out the user
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Clear session
             HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+
+            // Redirect to the home page or login page
+            ViewBag.HideNavbar = true;
+            return RedirectToAction("Index", "User");
         }
 
     }
