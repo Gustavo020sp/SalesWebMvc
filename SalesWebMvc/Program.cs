@@ -9,9 +9,20 @@ namespace SalesWebMvc
     {
         public static void Main(string[] args)
         {
+            
+
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<SalesWebMvcContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SalesWebMvcContext") ?? throw new InvalidOperationException("Connection string 'SalesWebMvcContext' not found.")));
+
+            builder.Services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+                options.Cookie.HttpOnly = true; // Make the session cookie accessible only via HTTP
+                options.Cookie.IsEssential = true; // Make the session cookie essential for the application
+            });
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -36,11 +47,13 @@ namespace SalesWebMvc
 
             app.UseAuthorization();
 
+            app.UseSession(); // Add this line to enable session support
 
-            //Chama por padr�o o HOME/INDEX
+
+            //Chama por padrao o HOME/INDEX
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=User}/{action=Index}/{id?}");
 
             app.Run();
         }

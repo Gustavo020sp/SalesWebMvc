@@ -1,0 +1,100 @@
+﻿@model SalesWebMvc.Models.User
+
+@{
+    ViewBag.HideNavbar = true;
+}
+
+@* <!DOCTYPE html>
+<html lang="en"> *@
+<head>
+    @* <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> *@
+    <title>Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .login-container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-form .control-label {
+            font-size: 18px;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .login-form .form-control {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 200px;
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-left: 510px;
+        }
+
+        .login-form button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @Html.ValidationSummary(true)
+        </div>
+    }
+
+    <div class="login-container">
+        <h1 class="login-title">Login</h1>
+        <form asp-action="Index" method="post" class="login-form">
+            <div>
+                <label asp-for="UserName" class="control-label">Usuário</label>
+                <input asp-for="UserName" class="form-control"/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Password" class="control-label">Senha</label>
+                <input asp-for="Password" class="form-control" type="password"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

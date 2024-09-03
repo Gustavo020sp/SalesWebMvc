@@ -12,8 +12,8 @@ using SalesWebMvc.Data;
 namespace SalesWebMvc.Migrations
 {
     [DbContext(typeof(SalesWebMvcContext))]
-    [Migration("20240827204034_seed")]
-    partial class seed
+    [Migration("20240903213517_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,13 +44,28 @@ namespace SalesWebMvc.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 4,
+                            Id = 1,
                             Name = "Computers"
                         },
                         new
                         {
-                            Id = 5,
+                            Id = 2,
+                            Name = "Books"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Fashion"
+                        },
+                        new
+                        {
+                            Id = 4,
                             Name = "Games"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Foods"
                         });
                 });
 
@@ -445,6 +460,35 @@ namespace SalesWebMvc.Migrations
                             DepartmentId = 2,
                             Email = "rreed@carroll.com",
                             Name = "Amber Gonzalez"
+                        });
+                });
+
+            modelBuilder.Entity("SalesWebMvc.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Password = "1234",
+                            UserName = "Admin"
                         });
                 });
 

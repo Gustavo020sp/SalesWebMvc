@@ -10,6 +10,8 @@
 </head>
 <body>
     <header>
+        @if (ViewBag.HideNavbar != true)
+    {
         <nav class="navbar navbar-expand-lg bg-primary text-dark" data-bs-theme="dark">
             <div class="container-fluid">
                 <a style="color: black" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Sales Web</a>
@@ -38,6 +40,7 @@
                 </div>
             </div>
         </nav>
+    }
     </header>
     <div class="container">
         <main role="main" class="pb-3">

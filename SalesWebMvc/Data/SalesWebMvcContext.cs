@@ -16,14 +16,21 @@ namespace SalesWebMvc.Data
         public DbSet<SalesWebMvc.Models.Department> Department { get; set; } = default!;
         public DbSet<SalesWebMvc.Models.SalesRecord> SalesRecord { get; set; }
         public DbSet<SalesWebMvc.Models.Seller> Seller { get; set; }
+        public DbSet<SalesWebMvc.Models.User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            //Adicionando usuario admin
+            modelBuilder.Entity<User>().HasData(new User {Id = 1, UserName = "Admin", Password = "1234" });
+
             //Populando a tabela Departamento
-            modelBuilder.Entity<Department>().HasData(new Department { Id = 4, Name = "Computers" });
-            modelBuilder.Entity<Department>().HasData(new Department { Id = 5, Name = "Games" });
+            modelBuilder.Entity<Department>().HasData(new Department { Id = 1, Name = "Computers" });
+            modelBuilder.Entity<Department>().HasData(new Department { Id = 2, Name = "Books" });
+            modelBuilder.Entity<Department>().HasData(new Department { Id = 3, Name = "Fashion" });
+            modelBuilder.Entity<Department>().HasData(new Department { Id = 4, Name = "Games" });
+            modelBuilder.Entity<Department>().HasData(new Department { Id = 5, Name = "Foods" });
 
             //Populando a tabela de Vendedor
             modelBuilder.Entity<Seller>().HasData(new Seller
